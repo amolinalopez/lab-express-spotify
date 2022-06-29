@@ -2,14 +2,16 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title></title>
-    <link rel="stylesheet" href="/stylesheets/styles.css">
+    <title>Spotify</title>
+    <link rel="stylesheet" href="/styles/style.css"> <!-- ne pas mettre public devant -->
   </head>
   <body>
-    <form>
+    <div id="formStyle">
+      <form action="/artist-search", method="GET">
         <input type:"text" name:"groupSearch">
         <button>Search for an Artist</button>
-    </form>
+      </form>
+    </div>
      <main>{{{body}}}</main>
   </body>
 </html>

@@ -35,4 +35,8 @@ app.get('/', (req, res, next)=> {
    res.render('homePage')
 })
 
+app.get('/artist-search', (req, res, next) => {
+    res.send(req.query);
+  });
+
 app.listen(3000, () => console.log('My Spotify project running on port 3000 🎧 🥁 🎸 🔊'));
