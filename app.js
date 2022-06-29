@@ -31,8 +31,8 @@ const spotifyApi = new SpotifyWebApi({
 
 // Our routes go here:
 
-app.get('/', (req, res, next)=> {
-   res.render('homePage')
+app.get('/', (req, res, next) => {
+   res.render('homePage');
 })
 
 app.get('/artist-search', (req, res, next) => {
