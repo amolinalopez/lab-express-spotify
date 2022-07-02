@@ -1,0 +1,17 @@
+<h1>liste d'artistes</h1>
+
+<div>
+    <ul>
+        {{#each searchedArtist.body.artists.items}}
+        <li>
+            <div class="artistFound">
+                <img src="{{images.0.url}}" alt>
+
+                <p class="name">{{name}}</p>
+            </div>
+        </li>
+        {{/each}}
+    </ul>
+</div>
+
+

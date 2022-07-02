@@ -12,8 +12,11 @@ const app = express();
 app.set('view engine', 'hbs');
 app.set('views', __dirname + '/views');
 app.use(express.static(__dirname + '/public'));
+hbs.registerPartials(__dirname + "/views/partials");
 
 // setting the spotify-api goes here:
+
+console.log('clientID=', process.env.CLIENT_ID)
 
 const spotifyApi = new SpotifyWebApi({
     clientId: process.env.CLIENT_ID,
@@ -21,10 +24,14 @@ const spotifyApi = new SpotifyWebApi({
   });
   
   // Retrieve an access token
-  spotifyApi
-    .clientCredentialsGrant()
-    .then(data => spotifyApi.setAccessToken(data.body['access_token']))
-    .catch(error => console.log('Something went wrong when retrieving an access token', error));
+spotifyApi
+  .clientCredentialsGrant()
+  .then(data => {
+    console.log('victoire')
+    spotifyApi.setAccessToken(data.body['access_token'])
+  })
+
+  .catch(error => console.log('Something went wrong when retrieving an access token', error));
   
 
 
@@ -32,11 +39,29 @@ const spotifyApi = new SpotifyWebApi({
 // Our routes go here:
 
 app.get('/', (req, res, next) => {
-   res.render('homePage');
+  res.render('homePage');
 })
 
 app.get('/artist-search', (req, res, next) => {
-    res.send(req.query);
+  const searchedArtist = req.query.groupSearch
+
+  spotifyApi
+    .searchArtists(searchedArtist)
+    .then(data => {
+      /*console.log('The received data from the API: ', data.body);
+      console.log(data.body.artists.items);*/
+      console.log(data)
+      console.log(data.body.artists.items)
+      console.log(data.body.artists.items[0].images)
+      res.render('artist-search-results', {searchedArtist: data})
+    })
+    .catch(err => console.log('The error while searching artists occurred: ', err));
+
+    
   });
+
+
+
+
 
 app.listen(3000, () => console.log('My Spotify project running on port 3000 🎧 🥁 🎸 🔊'));
